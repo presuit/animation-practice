@@ -10,9 +10,9 @@ const data = Array.from(Array(10).keys());
 
 const CardSliderPage = () => {
   const [index, setIndex] = useState(0);
+  const cardAnimation = useAnimation();
   const cardContainer = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
-  const cardAnimation = useAnimation();
   const rotateZ = useTransform(
     x,
     [-document.body.clientWidth / 2, 0, document.body.clientWidth / 2],
@@ -38,11 +38,13 @@ const CardSliderPage = () => {
   }, []);
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 1, type: "tween" } }}
       ref={cardContainer}
-      className="w-full min-h-screen bg-slate-200 p-5 overflow-hidden relative"
+      className="w-full min-h-screen bg-gradient-to-b from-slate-300 to-slate-500 p-5 overflow-hidden relative"
     >
-      <section className="max-w-screen-md w-full h-[70vh] bg-gradient-to-b from-slate-300 to-slate-400 rounded-2xl absolute top-0 left-0 bottom-0 right-0 m-auto flex justify-center items-center shadow">
+      <section className="max-w-screen-md w-full h-[70vh] bg-gradient-to-b from-slate-300 to-slate-500 rounded-2xl absolute top-0 left-0 bottom-0 right-0 m-auto flex justify-center items-center shadow-md">
         <h1 className="text-7xl font-semibold">
           {data[index + 1 === data.length ? 0 : index + 1]}
         </h1>
@@ -56,8 +58,6 @@ const CardSliderPage = () => {
           if (cardContainer.current) {
             const containerWidth = cardContainer.current.clientWidth;
             const constraint = Math.floor(containerWidth * 0.5);
-
-            console.log(containerWidth, constraint);
 
             if (x.get() >= constraint) {
               await cardAnimation.start({
@@ -74,11 +74,11 @@ const CardSliderPage = () => {
             }
           }
         }}
-        className="max-w-screen-md w-full h-[70vh] bg-gradient-to-b from-slate-300 to-slate-400 rounded-2xl absolute top-0 left-0 bottom-0 right-0 m-auto flex justify-center items-center shadow cursor-pointer"
+        className="max-w-screen-md w-full h-[70vh] bg-gradient-to-b from-slate-300 to-slate-500 rounded-2xl absolute top-0 left-0 bottom-0 right-0 m-auto flex justify-center items-center shadow-md cursor-pointer"
       >
         <h1 className="text-7xl font-semibold">{data[index]}</h1>
       </motion.section>
-    </div>
+    </motion.div>
   );
 };
 

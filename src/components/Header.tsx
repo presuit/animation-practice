@@ -1,28 +1,34 @@
 import { Link, PathMatch, useMatch } from "react-router-dom";
 import { motion } from "framer-motion";
 import { routes } from "../Router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLink, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
-interface IHeaderLink {
-  match: PathMatch<string> | null;
+interface IMenuItem {
   name: string;
   href: string;
 }
 
-const HeaderLink: React.FC<IHeaderLink> = ({ href, match, name }) => {
+const MenuItem: React.FC<IMenuItem> = ({ href, name }) => {
   return (
-    <div className="relative">
-      <Link to={href}>{name}</Link>
-      {match && (
-        <motion.div
-          layoutId="underline"
-          className="absolute -bottom-1 left-0 w-full h-1 bg-slate-500 rounded-full"
-        ></motion.div>
-      )}
-    </div>
+    <Link to={href}>
+      <section className="group flex gap-5 items-center hover:bg-slate-200 p-3 rounded-2xl">
+        <div className="w-14 h-14 rounded-full bg-slate-800 flex justify-center items-center group-hover:bg-slate-300">
+          <FontAwesomeIcon
+            className="group-hover:text-slate-700  text-slate-200 text-2xl"
+            icon={faLink}
+          />
+        </div>
+        <span className="text-slate-200 text-2xl group-hover:text-slate-700 font-semibold">
+          {name}
+        </span>
+      </section>
+    </Link>
   );
 };
-
 export default function Header() {
+  const [fullsize, setFullsize] = useState(false);
   const homeMatch = useMatch(routes.HOME);
   const acordianMatch = useMatch(routes.ACORDIAN);
   const appStoreMatch = useMatch(routes.APP_STORE);
@@ -30,30 +36,29 @@ export default function Header() {
   const gridView = useMatch(routes.GRID_VIEW);
   const cardSlider = useMatch(routes.CARD_SLIDER);
 
-  return (
-    <header className="w-full p-5 px-10 bg-slate-800 flex items-center text-slate-200 text-xl font-semibold  gap-10">
-      <HeaderLink match={homeMatch} href={routes.HOME} name="홈" />
-      <HeaderLink
-        match={acordianMatch}
-        href={routes.ACORDIAN}
-        name="아코디언"
-      />
-      <HeaderLink
-        match={appStoreMatch}
-        href={routes.APP_STORE}
-        name="앱 스토어"
-      />
-      <HeaderLink
-        match={scaleUpMenuMatch}
-        href={routes.SCALE_UP_MENU}
-        name="스케일 업 메뉴"
-      />
-      <HeaderLink match={gridView} href={routes.GRID_VIEW} name="그리드 뷰" />
-      <HeaderLink
-        match={cardSlider}
-        href={routes.CARD_SLIDER}
-        name="카드 슬라이더"
-      />
+  return fullsize ? (
+    <header className="fixed bottom-0 right-0 flex flex-col justify-end items-start cursor-pointer z-10 gap-5 p-5 h-[100vh] bg-black bg-opacity-90">
+      <MenuItem href={routes.HOME} name="Home" />
+      <MenuItem href={routes.ACORDIAN} name="Acordian" />
+      <MenuItem href={routes.APP_STORE} name="App Store" />
+      <MenuItem href={routes.CARD_SLIDER} name="Card Slider" />
+      <MenuItem href={routes.GRID_VIEW} name="Grid View" />
+      <MenuItem href={routes.SCALE_UP_MENU} name="Scale Up Menu" />
+      <section className="p-3">
+        <div
+          onClick={() => setFullsize(false)}
+          className="w-14 h-14 rounded-full bg-slate-800 flex justify-center items-center "
+        >
+          <FontAwesomeIcon className="text-slate-200 text-2xl" icon={faMinus} />
+        </div>
+      </section>
+    </header>
+  ) : (
+    <header
+      onClick={() => setFullsize(true)}
+      className="fixed bottom-0 right-0 flex justify-center items-center mb-5 mr-5 w-14 h-14 rounded-full bg-red-500  text-slate-200 cursor-pointer z-10"
+    >
+      <FontAwesomeIcon className="text-2xl" icon={faPlus} />
     </header>
   );
 }
