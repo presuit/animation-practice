@@ -1,12 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  AnimatePresence,
-  motion,
-  useElementScroll,
-  Variants,
-} from "framer-motion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useCallback, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 /*
  todo
@@ -51,10 +44,8 @@ function GridView() {
     }
   }, []);
 
-  console.log(index);
-
   return (
-    <div className="w-full min-h-screen bg-gradient-to-b from-indigo-700 to-indigo-800 ">
+    <div className="w-full min-h-screen bg-slate-900">
       <div
         className={`w-full flex flex-wrap p-20 gap-10 justify-center items-start ${
           selected !== null && "pb-[50vh]"
@@ -63,42 +54,8 @@ function GridView() {
         {Array.from(Array(testDataLength).keys())
           .slice(0, index * dataOffset + dataOffset)
           .map((item) => {
-            if (item === index * dataOffset + dataOffset - 1) {
-              return (
-                <motion.section
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0,
-                    transition: { duration: 0.5 },
-                  }}
-                  ref={onObserverChanged}
-                  key={item}
-                  className="w-52 h-52 relative"
-                >
-                  {selected === item && (
-                    <motion.aside
-                      ref={onScrollIntoView}
-                      initial={{ opacity: 0, scale: 2 }}
-                      animate={{ opacity: 1, scale: 1.05 }}
-                      transition={{ duration: 0.3 }}
-                      style={{ scale: 1.05 }}
-                      className="absolute top-0 left-0 w-full h-full bg-indigo-600 rounded-2xl"
-                    ></motion.aside>
-                  )}
-                  <main
-                    onClick={() => onclick(item)}
-                    className="absolute top-0 left-0 w-full h-full bg-indigo-900 rounded-3xl flex justify-center items-center cursor-pointer text-indigo-200 overflow-hidden p-2"
-                  >
-                    <img
-                      loading="lazy"
-                      src={`https://picsum.photos/200?random=${item + 1}`}
-                      className="w-full h-full object-cover object-center rounded-3xl"
-                    />
-                  </main>
-                </motion.section>
-              );
-            }
+            const isLast = item === index * dataOffset + dataOffset - 1;
+
             return (
               <motion.section
                 key={item}
@@ -109,7 +66,8 @@ function GridView() {
                   y: 0,
                   transition: { duration: 0.5 },
                 }}
-                className="w-52 h-52 relative"
+                ref={isLast ? onObserverChanged : undefined}
+                className="w-52 h-52 relative "
               >
                 {selected === item && (
                   <motion.aside
@@ -118,16 +76,16 @@ function GridView() {
                     animate={{ opacity: 1, scale: 1.05 }}
                     transition={{ duration: 0.3 }}
                     style={{ scale: 1.05 }}
-                    className="absolute top-0 left-0 w-full h-full bg-indigo-600 rounded-2xl"
+                    className="absolute top-0 left-0 w-full h-full bg-slate-700 rounded-2xl"
                   ></motion.aside>
                 )}
                 <main
                   onClick={() => onclick(item)}
-                  className="absolute top-0 left-0 w-full h-full bg-indigo-900 rounded-3xl flex justify-center items-center cursor-pointer text-indigo-200 overflow-hidden p-2"
+                  className="absolute top-0 left-0 w-full h-full rounded-2xl flex justify-center items-center cursor-pointer p-2 bg-slate-800  overflow-hidden"
                 >
                   <img
                     src={`https://picsum.photos/200?random=${item + 1}`}
-                    className="w-full h-full object-cover object-center rounded-3xl"
+                    className="w-full h-full object-cover object-center rounded-2xl "
                   />
                 </main>
               </motion.section>

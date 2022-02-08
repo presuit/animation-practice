@@ -1,5 +1,5 @@
-import { motion, useAnimation } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import { LoremIpsum } from "react-lorem-ipsum";
 
 const imgSrcs = [
