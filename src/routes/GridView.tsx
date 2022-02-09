@@ -94,7 +94,7 @@ function GridView() {
       </div>
       <AnimatePresence>
         {selected !== null ? (
-          <div className="fixed top-0 left-0 w-full h-full ">
+          <div className="fixed top-0 left-0 w-full h-full z-20">
             <aside
               onClick={() => onclick(null)}
               className="w-full h-full cursor-pointer"
@@ -105,7 +105,7 @@ function GridView() {
               transition={{ duration: 0.5 }}
               exit={{ opacity: 0, y: window.outerHeight }}
               key={"selectedModal"}
-              className="absolute bottom-0 left-0 w-full h-[40vh] bg-indigo-200 rounded-tl-3xl rounded-tr-3xl flex justify-center items-center text-5xl text-indigo-900"
+              className="fixed bottom-0 left-0 w-full h-[40vh] bg-indigo-200 rounded-tl-3xl rounded-tr-3xl flex justify-center items-center text-5xl text-indigo-900 "
             >
               Current Selected: {selected}
             </motion.nav>

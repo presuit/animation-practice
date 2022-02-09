@@ -1,64 +1,130 @@
-import { Link, PathMatch, useMatch } from "react-router-dom";
-import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 import { routes } from "../Router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
-interface IMenuItem {
-  name: string;
-  href: string;
+type ROUTES = keyof typeof routes;
+
+interface IHeaderItem {
+  route: ROUTES;
+  setFullsize: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const MenuItem: React.FC<IMenuItem> = ({ href, name }) => {
+const HeaderOpenVar: Variants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.5, type: "tween", delayChildren: 0.3 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.5, type: "tween" },
+  },
+};
+
+const HeaderOpenItemVar: Variants = {
+  hidden: { opacity: 0, x: window.outerWidth },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.5, type: "tween" } },
+  exit: {
+    opacity: 0,
+    x: window.outerWidth,
+    transition: { duration: 0.5, type: "tween" },
+  },
+};
+
+const HeaderCloseVar: Variants = {
+  hidden: { opacity: 0, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.5, type: "spring", delay: 0.3 },
+  },
+  exit: { opacity: 0, scale: 0, transition: { duration: 0.5, type: "spring" } },
+};
+
+const HeaderItem: React.FC<IHeaderItem> = ({ route, setFullsize }) => {
+  const history = useNavigate();
+  const handleLink = (route: ROUTES) => {
+    setFullsize(false);
+    switch (route) {
+      case "ACORDIAN":
+        history(routes.ACORDIAN);
+        break;
+      case "APP_STORE":
+        history(routes.APP_STORE);
+        break;
+      case "CARD_SLIDER":
+        history(routes.CARD_SLIDER);
+        break;
+      case "GRID_VIEW":
+        history(routes.GRID_VIEW);
+        break;
+      case "HOME":
+        history(routes.HOME);
+        break;
+      case "SCALE_UP_MENU":
+        history(routes.SCALE_UP_MENU);
+        break;
+    }
+  };
   return (
-    <Link to={href}>
-      <section className="group flex gap-5 items-center hover:bg-slate-200 p-3 rounded-2xl">
-        <div className="w-14 h-14 rounded-full bg-slate-800 flex justify-center items-center group-hover:bg-slate-300">
-          <FontAwesomeIcon
-            className="group-hover:text-slate-700  text-slate-200 text-2xl"
-            icon={faLink}
-          />
-        </div>
-        <span className="text-slate-200 text-2xl group-hover:text-slate-700 font-semibold">
-          {name}
-        </span>
-      </section>
-    </Link>
+    <section
+      onClick={() => handleLink(route)}
+      className="p-3 px-5 bg-slate-300 rounded-2xl text-lg font-semibold cursor-pointer transform skew-x-12 shadow-md border border-slate-200 hover:scale-110 transition-all duration-300"
+    >
+      <h1 className="transform -skew-x-12 capitalize">{route.toLowerCase()}</h1>
+    </section>
   );
 };
+
 export default function Header() {
   const [fullsize, setFullsize] = useState(false);
-  const homeMatch = useMatch(routes.HOME);
-  const acordianMatch = useMatch(routes.ACORDIAN);
-  const appStoreMatch = useMatch(routes.APP_STORE);
-  const scaleUpMenuMatch = useMatch(routes.SCALE_UP_MENU);
-  const gridView = useMatch(routes.GRID_VIEW);
-  const cardSlider = useMatch(routes.CARD_SLIDER);
+  const toggleFullsize = () => setFullsize((prev) => !prev);
 
-  return fullsize ? (
-    <header className="fixed bottom-0 right-0 flex flex-col justify-end items-start cursor-pointer z-10 gap-5 p-5 h-[100vh] bg-black bg-opacity-90">
-      <MenuItem href={routes.HOME} name="Home" />
-      <MenuItem href={routes.ACORDIAN} name="Acordian" />
-      <MenuItem href={routes.APP_STORE} name="App Store" />
-      <MenuItem href={routes.CARD_SLIDER} name="Card Slider" />
-      <MenuItem href={routes.GRID_VIEW} name="Grid View" />
-      <MenuItem href={routes.SCALE_UP_MENU} name="Scale Up Menu" />
-      <section className="p-3">
-        <div
-          onClick={() => setFullsize(false)}
-          className="w-14 h-14 rounded-full bg-slate-800 flex justify-center items-center "
+  return (
+    <AnimatePresence initial={false}>
+      {fullsize ? (
+        <motion.header
+          variants={HeaderOpenVar}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          key="fullsizeHeader"
+          className="w-full h-full fixed top-0 left-0 z-20"
         >
-          <FontAwesomeIcon className="text-slate-200 text-2xl" icon={faMinus} />
-        </div>
-      </section>
-    </header>
-  ) : (
-    <header
-      onClick={() => setFullsize(true)}
-      className="fixed bottom-0 right-0 flex justify-center items-center mb-5 mr-5 w-14 h-14 rounded-full bg-red-500  text-slate-200 cursor-pointer z-10"
-    >
-      <FontAwesomeIcon className="text-2xl" icon={faPlus} />
-    </header>
+          <div
+            onClick={toggleFullsize}
+            className="w-full h-full bg-black bg-opacity-50 cursor-pointer"
+          ></div>
+          <motion.main
+            variants={HeaderOpenItemVar}
+            className="fixed top-0 right-0 h-full bg-slate-200 p-5 py-10 flex flex-col justify-end items-center max-w-xs gap-10 overflow-hidden"
+          >
+            <HeaderItem route="HOME" setFullsize={setFullsize} />
+            <HeaderItem route="ACORDIAN" setFullsize={setFullsize} />
+            <HeaderItem route="APP_STORE" setFullsize={setFullsize} />
+            <HeaderItem route="CARD_SLIDER" setFullsize={setFullsize} />
+            <HeaderItem route="GRID_VIEW" setFullsize={setFullsize} />
+            <HeaderItem route="SCALE_UP_MENU" setFullsize={setFullsize} />
+          </motion.main>
+        </motion.header>
+      ) : (
+        <motion.header
+          key="header"
+          variants={HeaderCloseVar}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          onClick={toggleFullsize}
+          className="fixed w-16 h-16 bg-red-500 rounded-full p-5 bottom-0 right-0 z-10 m-10 flex justify-center items-center cursor-pointer"
+        >
+          <FontAwesomeIcon className="text-2xl text-slate-200" icon={faPlus} />
+        </motion.header>
+      )}
+    </AnimatePresence>
   );
 }
