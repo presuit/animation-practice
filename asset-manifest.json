@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/animation-practice/static/css/main.d113cfe6.css",
-    "main.js": "/animation-practice/static/js/main.70191649.js",
+    "main.css": "/animation-practice/static/css/main.2e6c78b5.css",
+    "main.js": "/animation-practice/static/js/main.b9887e00.js",
     "index.html": "/animation-practice/index.html",
-    "main.d113cfe6.css.map": "/animation-practice/static/css/main.d113cfe6.css.map",
-    "main.70191649.js.map": "/animation-practice/static/js/main.70191649.js.map"
+    "main.2e6c78b5.css.map": "/animation-practice/static/css/main.2e6c78b5.css.map",
+    "main.b9887e00.js.map": "/animation-practice/static/js/main.b9887e00.js.map"
   },
   "entrypoints": [
-    "static/css/main.d113cfe6.css",
-    "static/js/main.70191649.js"
+    "static/css/main.2e6c78b5.css",
+    "static/js/main.b9887e00.js"
   ]
 }
