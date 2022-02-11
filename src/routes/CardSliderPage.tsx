@@ -22,6 +22,12 @@ const CardSliderPage = () => {
       clamp: true,
     }
   );
+  const backgroundColor = useTransform(
+    x,
+    [-document.body.clientWidth / 2, 0, document.body.clientWidth / 2],
+    ["#0d9488", "#e2e8f0", "#059669"],
+    { clamp: true }
+  );
 
   const onDragEnd = async () => {
     if (cardContainer.current) {
@@ -64,21 +70,21 @@ const CardSliderPage = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { duration: 1, type: "tween" } }}
       ref={cardContainer}
-      className="w-full min-h-screen bg-gradient-to-b from-slate-300 to-slate-500 p-5 overflow-hidden relative"
+      className="w-full min-h-screen bg-gradient-to-r from-teal-500 to-emerald-500 p-5 overflow-hidden relative"
     >
       <PageTitle name="Card Slider" />
-      <section className="max-w-screen-md w-[90%] md:w-full h-[70vh] bg-gradient-to-b from-slate-300 to-slate-500 rounded-2xl absolute top-0 left-0 bottom-0 right-0 m-auto flex justify-center items-center shadow-md">
+      <section className="max-w-screen-md w-[90%] md:w-full h-[70vh] bg-slate-200 rounded-2xl absolute top-0 left-0 bottom-0 right-0 m-auto flex justify-center items-center shadow-md">
         <h1 className="text-7xl font-semibold text-slate-700">
           {data[index + 1 === data.length ? 0 : index + 1]}
         </h1>
       </section>
       <motion.section
-        style={{ x, rotateZ }}
+        style={{ x, rotateZ, backgroundColor }}
         drag="x"
         animate={cardAnimation}
         dragSnapToOrigin
         onDragEnd={onDragEnd}
-        className="max-w-screen-md w-[90%] md:w-full h-[70vh] bg-gradient-to-b from-slate-300 to-slate-500 rounded-2xl absolute top-0 left-0 bottom-0 right-0 m-auto flex justify-center items-center shadow-md cursor-pointer"
+        className="max-w-screen-md w-[90%] md:w-full h-[70vh] bg-slate-200 rounded-2xl absolute top-0 left-0 bottom-0 right-0 m-auto flex justify-center items-center shadow-md cursor-pointer"
       >
         <h1 className="text-7xl font-semibold text-slate-700">{data[index]}</h1>
       </motion.section>
