@@ -2,14 +2,6 @@ import { useCallback, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import PageTitle from "../components/PageTitle";
 
-/*
- todo
- 1. 그리드 뷰 뷰포트에 들어오면 애니메이션 해서 보여주기
- 2. intersection observer 사용해서 마지막 아이템이 뷰포트에 들어오면 다음 데이터 로드하기(무한 스크롤)
- 3. 뷰포트에 들어오면 그때 lazy loading 하기  
-
-*/
-
 const dataOffset = 40;
 const testDataLength = 600;
 
@@ -36,7 +28,7 @@ function GridView() {
 
       if (node) observer.current.observe(node);
     },
-    [index]
+    [index, observer]
   );
 
   const onScrollIntoView = useCallback((node: HTMLDivElement | null) => {
@@ -46,7 +38,7 @@ function GridView() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-slate-100">
+    <div className="w-full min-h-screen bg-gradient-to-r from-emerald-500 to-teal-500">
       <PageTitle name="Grid View" />
       <div
         className={`w-full flex flex-wrap p-20 gap-10 justify-center items-start ${
@@ -78,7 +70,7 @@ function GridView() {
                     animate={{ opacity: 1, scale: 1.05 }}
                     transition={{ duration: 0.3 }}
                     style={{ scale: 1.05 }}
-                    className="absolute top-0 left-0 w-full h-full bg-indigo-500"
+                    className="absolute top-0 left-0 w-full h-full bg-slate-200"
                   ></motion.aside>
                 )}
                 <main
@@ -88,7 +80,7 @@ function GridView() {
                     })`,
                   }}
                   onClick={() => onclick(item)}
-                  className="absolute top-0 left-0 w-full h-full  flex justify-center items-center cursor-pointer overflow-hidden bg-cover bg-center"
+                  className="absolute top-0 left-0 w-full h-full  flex justify-center items-center cursor-pointer overflow-hidden bg-cover bg-center shadow-md"
                 ></main>
               </motion.section>
             );
@@ -107,7 +99,7 @@ function GridView() {
               transition={{ duration: 0.5 }}
               exit={{ opacity: 0, y: window.outerHeight }}
               key={"selectedModal"}
-              className="fixed bottom-0 left-0 w-full h-[40vh] bg-gradient-to-b from-slate-200 to-slate-400 rounded-tl-3xl rounded-tr-3xl flex justify-center items-center text-5xl text-slate-700 p-10 "
+              className="fixed bottom-0 left-0 w-full h-[40vh] bg-slate-200 rounded-tl-3xl rounded-tr-3xl flex justify-center items-center text-5xl text-slate-700 p-10 "
             >
               <span className="text-center font-semibold">{selected}</span>
             </motion.nav>

@@ -6,6 +6,9 @@ import Home from "./routes/Home";
 import ScaleUpMenuPage from "./routes/ScaleUpMenuPage";
 import GridView from "./routes/GridView";
 import CardSliderPage from "./routes/CardSliderPage";
+import OnViewportEnter from "./routes/OnViewportEnter";
+import ScrollTop from "./components/ScrollTop";
+import Link from "./routes/Link";
 
 export const routes = {
   HOME: "/",
@@ -14,23 +17,31 @@ export const routes = {
   SCALE_UP_MENU: "/scale-up-menu",
   GRID_VIEW: "/grid-view",
   CARD_SLIDER: "/card-slider",
+  ON_VIEWPORT_ENTER: "/on-viewport-enter",
 };
 
 function Router() {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Header />
-      <Routes>
-        <Route path={routes.HOME} element={<Home />}></Route>
-        <Route path={routes.ACORDIAN} element={<AcordianPage />}></Route>
-        <Route path={routes.APP_STORE} element={<AppStorePage />}></Route>
-        <Route
-          path={routes.SCALE_UP_MENU}
-          element={<ScaleUpMenuPage />}
-        ></Route>
-        <Route path={routes.GRID_VIEW} element={<GridView />}></Route>
-        <Route path={routes.CARD_SLIDER} element={<CardSliderPage />}></Route>
-      </Routes>
+      <ScrollTop>
+        <Routes>
+          <Route path={routes.HOME} element={<Home />}></Route>
+          <Route path={routes.ACORDIAN} element={<AcordianPage />}></Route>
+          <Route path={routes.APP_STORE} element={<AppStorePage />}></Route>
+          <Route
+            path={routes.SCALE_UP_MENU}
+            element={<ScaleUpMenuPage />}
+          ></Route>
+          <Route path={routes.GRID_VIEW} element={<GridView />}></Route>
+          <Route path={routes.CARD_SLIDER} element={<CardSliderPage />}></Route>
+          <Route
+            path={routes.ON_VIEWPORT_ENTER}
+            element={<OnViewportEnter />}
+          ></Route>
+          <Route path="/link" element={<Link />}></Route>
+        </Routes>
+      </ScrollTop>
     </BrowserRouter>
   );
 }

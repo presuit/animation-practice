@@ -70,6 +70,9 @@ const HeaderItem: React.FC<IHeaderItem> = ({ route, setFullsize, onView }) => {
       case "SCALE_UP_MENU":
         history(routes.SCALE_UP_MENU);
         break;
+      case "ON_VIEWPORT_ENTER":
+        history(routes.ON_VIEWPORT_ENTER);
+        break;
     }
   };
   return (
@@ -93,6 +96,7 @@ export default function Header() {
   const cardSliderMatch = useMatch(routes.CARD_SLIDER);
   const gridViewMatch = useMatch(routes.GRID_VIEW);
   const scaleMatch = useMatch(routes.SCALE_UP_MENU);
+  const viewportMatch = useMatch(routes.ON_VIEWPORT_ENTER);
 
   return (
     <AnimatePresence initial={false}>
@@ -143,6 +147,11 @@ export default function Header() {
               route="SCALE_UP_MENU"
               setFullsize={setFullsize}
             />
+            <HeaderItem
+              onView={Boolean(viewportMatch)}
+              route="ON_VIEWPORT_ENTER"
+              setFullsize={setFullsize}
+            />
           </motion.main>
         </motion.header>
       ) : (
@@ -153,7 +162,7 @@ export default function Header() {
           animate="visible"
           exit="exit"
           onClick={toggleFullsize}
-          className="fixed w-16 h-16 bg-slate-700 rounded-full p-5 bottom-0 right-0 z-10 m-10 flex justify-center items-center cursor-pointer ring ring-slate-600"
+          className="fixed w-14 h-14 md:w-16 md:h-16 bg-slate-700 rounded-full p-5 bottom-0 right-0 z-10 m-5 flex justify-center items-center cursor-pointer ring ring-slate-600"
         >
           <FontAwesomeIcon className="text-2xl text-slate-200" icon={faPlus} />
         </motion.header>

@@ -57,7 +57,7 @@ const CardSliderPage = () => {
     return () => {
       x.destroy();
     };
-  }, []);
+  }, [x]);
 
   return (
     <motion.div
@@ -67,7 +67,7 @@ const CardSliderPage = () => {
       className="w-full min-h-screen bg-gradient-to-b from-slate-300 to-slate-500 p-5 overflow-hidden relative"
     >
       <PageTitle name="Card Slider" />
-      <section className="max-w-screen-md w-80 md:w-full h-[70vh] bg-gradient-to-b from-slate-300 to-slate-500 rounded-2xl absolute top-0 left-0 bottom-0 right-0 m-auto flex justify-center items-center shadow-md">
+      <section className="max-w-screen-md w-[90%] md:w-full h-[70vh] bg-gradient-to-b from-slate-300 to-slate-500 rounded-2xl absolute top-0 left-0 bottom-0 right-0 m-auto flex justify-center items-center shadow-md">
         <h1 className="text-7xl font-semibold text-slate-700">
           {data[index + 1 === data.length ? 0 : index + 1]}
         </h1>
@@ -78,7 +78,7 @@ const CardSliderPage = () => {
         animate={cardAnimation}
         dragSnapToOrigin
         onDragEnd={onDragEnd}
-        className="max-w-screen-md w-80 md:w-full h-[70vh] bg-gradient-to-b from-slate-300 to-slate-500 rounded-2xl absolute top-0 left-0 bottom-0 right-0 m-auto flex justify-center items-center shadow-md cursor-pointer"
+        className="max-w-screen-md w-[90%] md:w-full h-[70vh] bg-gradient-to-b from-slate-300 to-slate-500 rounded-2xl absolute top-0 left-0 bottom-0 right-0 m-auto flex justify-center items-center shadow-md cursor-pointer"
       >
         <h1 className="text-7xl font-semibold text-slate-700">{data[index]}</h1>
       </motion.section>

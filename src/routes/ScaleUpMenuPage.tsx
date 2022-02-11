@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import PageTitle from "../components/PageTitle";
+import { faPlusCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 const containerVar: Variants = {
   hidden: {

@@ -60,7 +60,7 @@ export default function AppStorePage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="absolute top-0 left-0 right-0 bottom-0 m-auto max-w-screen-md md:w-full w-80 h-[70vh] bg-slate-200 rounded-2xl overflow-hidden flex flex-col gap-3"
+            className="absolute top-0 left-0 right-0 bottom-0 m-auto max-w-screen-md w-[90%] md:w-full h-[70vh] bg-slate-200 rounded-2xl overflow-hidden flex flex-col gap-3"
           >
             <section className="flex justify-center items-center">
               <motion.img
