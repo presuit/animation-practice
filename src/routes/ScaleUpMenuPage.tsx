@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { motion, AnimatePresence, Variants } from "framer-motion";
+import PageTitle from "../components/PageTitle";
 
 const containerVar: Variants = {
   hidden: {
@@ -55,6 +56,7 @@ export default function ScaleUpMenuPage() {
   };
   return (
     <AnimatePresence exitBeforeEnter>
+      <PageTitle name="Scale Up Menu" />
       <motion.div
         key={menuOpen ? "open" : "close"}
         variants={containerVar}

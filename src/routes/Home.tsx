@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import PageTitle from "../components/PageTitle";
 
 export default function Home() {
   const boxRef = useRef<HTMLDivElement>(null);
@@ -15,6 +16,7 @@ export default function Home() {
 
   return (
     <div className="w-fulll h-screen bg-black flex justify-center items-center flex-col gap-10">
+      <PageTitle name="Home" />
       <div
         ref={boxRef}
         className="max-w-screen-md w-full h-[50vh] bg-slate-300 rounded-2xl grid grid-cols-2 grid-rows-2 overflow-hidden"

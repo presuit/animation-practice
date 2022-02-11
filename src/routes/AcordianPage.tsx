@@ -1,4 +1,5 @@
 import Acordian, { IAcordianData } from "../components/Acordian";
+import PageTitle from "../components/PageTitle";
 
 const data: IAcordianData[] = [
   {
@@ -46,6 +47,7 @@ const data: IAcordianData[] = [
 function AcordianPage() {
   return (
     <div className="w-full h-screen bg-black flex justify-center items-center px-10 flex-col gap-10">
+      <PageTitle name="Acordian" />
       <div className="w-full h-[70vh]">
         <Acordian data={data} />
       </div>

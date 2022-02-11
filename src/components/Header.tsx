@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { routes } from "../Router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +9,7 @@ type ROUTES = keyof typeof routes;
 
 interface IHeaderItem {
   route: ROUTES;
+  onView: boolean;
   setFullsize: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -18,7 +19,7 @@ const HeaderOpenVar: Variants = {
   },
   visible: {
     opacity: 1,
-    transition: { duration: 0.5, type: "tween", delayChildren: 0.3 },
+    transition: { duration: 0.5, type: "tween", delayChildren: 0.2 },
   },
   exit: {
     opacity: 0,
@@ -41,12 +42,12 @@ const HeaderCloseVar: Variants = {
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, type: "spring", delay: 0.3 },
+    transition: { duration: 0.5, type: "spring", delay: 0.3, bounce: 0.5 },
   },
   exit: { opacity: 0, scale: 0, transition: { duration: 0.5, type: "spring" } },
 };
 
-const HeaderItem: React.FC<IHeaderItem> = ({ route, setFullsize }) => {
+const HeaderItem: React.FC<IHeaderItem> = ({ route, setFullsize, onView }) => {
   const history = useNavigate();
   const handleLink = (route: ROUTES) => {
     setFullsize(false);
@@ -74,7 +75,9 @@ const HeaderItem: React.FC<IHeaderItem> = ({ route, setFullsize }) => {
   return (
     <section
       onClick={() => handleLink(route)}
-      className="p-3 px-5 bg-slate-300 rounded-2xl text-lg font-semibold cursor-pointer transform skew-x-12 shadow-md border border-slate-200 hover:scale-110 transition-all duration-300"
+      className={`p-3 px-5 rounded-2xl text-lg font-semibold cursor-pointer transform skew-x-12 shadow-md border-2 border-slate-200 hover:scale-110 transition-all duration-300 ${
+        onView ? "bg-teal-500 text-slate-200" : "bg-slate-300"
+      }`}
     >
       <h1 className="transform -skew-x-12 capitalize">{route.toLowerCase()}</h1>
     </section>
@@ -84,6 +87,12 @@ const HeaderItem: React.FC<IHeaderItem> = ({ route, setFullsize }) => {
 export default function Header() {
   const [fullsize, setFullsize] = useState(false);
   const toggleFullsize = () => setFullsize((prev) => !prev);
+  const homeMatch = useMatch(routes.HOME);
+  const acordianMatch = useMatch(routes.ACORDIAN);
+  const appStoreMatch = useMatch(routes.APP_STORE);
+  const cardSliderMatch = useMatch(routes.CARD_SLIDER);
+  const gridViewMatch = useMatch(routes.GRID_VIEW);
+  const scaleMatch = useMatch(routes.SCALE_UP_MENU);
 
   return (
     <AnimatePresence initial={false}>
@@ -104,12 +113,36 @@ export default function Header() {
             variants={HeaderOpenItemVar}
             className="fixed top-0 right-0 h-full bg-slate-200 p-5 py-10 flex flex-col justify-end items-center max-w-xs gap-10 overflow-hidden"
           >
-            <HeaderItem route="HOME" setFullsize={setFullsize} />
-            <HeaderItem route="ACORDIAN" setFullsize={setFullsize} />
-            <HeaderItem route="APP_STORE" setFullsize={setFullsize} />
-            <HeaderItem route="CARD_SLIDER" setFullsize={setFullsize} />
-            <HeaderItem route="GRID_VIEW" setFullsize={setFullsize} />
-            <HeaderItem route="SCALE_UP_MENU" setFullsize={setFullsize} />
+            <HeaderItem
+              onView={Boolean(homeMatch)}
+              route="HOME"
+              setFullsize={setFullsize}
+            />
+            <HeaderItem
+              onView={Boolean(acordianMatch)}
+              route="ACORDIAN"
+              setFullsize={setFullsize}
+            />
+            <HeaderItem
+              onView={Boolean(appStoreMatch)}
+              route="APP_STORE"
+              setFullsize={setFullsize}
+            />
+            <HeaderItem
+              onView={Boolean(cardSliderMatch)}
+              route="CARD_SLIDER"
+              setFullsize={setFullsize}
+            />
+            <HeaderItem
+              onView={Boolean(gridViewMatch)}
+              route="GRID_VIEW"
+              setFullsize={setFullsize}
+            />
+            <HeaderItem
+              onView={Boolean(scaleMatch)}
+              route="SCALE_UP_MENU"
+              setFullsize={setFullsize}
+            />
           </motion.main>
         </motion.header>
       ) : (
@@ -120,7 +153,7 @@ export default function Header() {
           animate="visible"
           exit="exit"
           onClick={toggleFullsize}
-          className="fixed w-16 h-16 bg-red-500 rounded-full p-5 bottom-0 right-0 z-10 m-10 flex justify-center items-center cursor-pointer"
+          className="fixed w-16 h-16 bg-slate-700 rounded-full p-5 bottom-0 right-0 z-10 m-10 flex justify-center items-center cursor-pointer ring ring-slate-600"
         >
           <FontAwesomeIcon className="text-2xl text-slate-200" icon={faPlus} />
         </motion.header>
