@@ -19,7 +19,7 @@ export default function Home() {
       <PageTitle name="Home" />
       <div
         ref={boxRef}
-        className="max-w-screen-md w-full h-[50vh] bg-slate-300 rounded-2xl grid grid-cols-2 grid-rows-2 overflow-hidden"
+        className="container md:w-full w-[90%] h-[50vh] bg-slate-300 rounded-2xl grid grid-cols-2 grid-rows-2 overflow-hidden"
       >
         <motion.section
           animate={{

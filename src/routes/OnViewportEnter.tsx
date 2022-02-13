@@ -10,15 +10,15 @@ interface IText {
 const Text: React.FC<IText> = ({ isEven }) => {
   return (
     <motion.div
-      className={`w-1/2 h-full text-center flex items-center font-medium md:text-lg text-sm ${
+      className={`w-1/2 h-full text-center flex flex-col justify-center items-center font-medium md:text-lg text-sm ${
         isEven ? "bg-teal-400" : "bg-emerald-400"
-      } rounded-2xl p-3 px-5 shadow-md`}
+      } rounded-2xl p-3 px-5 shadow-md overflow-hidden`}
       initial={{ opacity: 0, y: 100 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, type: "spring" }}
       viewport={{ once: true, margin: "0px 0px -30% 0px" }}
     >
-      {<LoremIpsum p={1} avgWordsPerSentence={5} />}
+      <LoremIpsum p={1} avgSentencesPerParagraph={1} />
     </motion.div>
   );
 };
@@ -30,10 +30,9 @@ const OnViewportEnter = () => {
         {data.map((d) => {
           const isEven = d % 2 === 0;
           return (
-            <div className="w-full h-[50vh] flex gap-5">
+            <div key={d} className="w-full md:h-[50vh] h-[40vh] flex gap-5">
               {!isEven && <Text isEven={isEven} />}
               <motion.section
-                key={d}
                 viewport={{ once: true, margin: "0px 0px -30% 0px" }}
                 initial={{
                   opacity: 0,

@@ -25,7 +25,7 @@ const CardSliderPage = () => {
   const backgroundColor = useTransform(
     x,
     [-document.body.clientWidth / 2, 0, document.body.clientWidth / 2],
-    ["#0d9488", "#e2e8f0", "#059669"],
+    ["#2dd4bf", "#e2e8f0", "#34d399"],
     { clamp: true }
   );
 
