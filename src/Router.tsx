@@ -8,7 +8,7 @@ import GridView from "./routes/GridView";
 import CardSliderPage from "./routes/CardSliderPage";
 import OnViewportEnter from "./routes/OnViewportEnter";
 import ScrollTop from "./components/ScrollTop";
-import Link from "./routes/Link";
+import CardScatter from "./routes/CardScatter";
 
 export const routes = {
   HOME: "/",
@@ -18,6 +18,7 @@ export const routes = {
   GRID_VIEW: "/grid-view",
   CARD_SLIDER: "/card-slider",
   ON_VIEWPORT_ENTER: "/on-viewport-enter",
+  CARD_SCATTER: "/card-scatter",
 };
 
 function Router() {
@@ -39,7 +40,7 @@ function Router() {
             path={routes.ON_VIEWPORT_ENTER}
             element={<OnViewportEnter />}
           ></Route>
-          <Route path="/link" element={<Link />}></Route>
+          <Route path={routes.CARD_SCATTER} element={<CardScatter />}></Route>
         </Routes>
       </ScrollTop>
     </BrowserRouter>

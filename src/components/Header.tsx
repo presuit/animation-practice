@@ -73,6 +73,9 @@ const HeaderItem: React.FC<IHeaderItem> = ({ route, setFullsize, onView }) => {
       case "ON_VIEWPORT_ENTER":
         history(routes.ON_VIEWPORT_ENTER);
         break;
+      case "CARD_SCATTER":
+        history(routes.CARD_SCATTER);
+        break;
     }
   };
   return (
@@ -97,6 +100,7 @@ export default function Header() {
   const gridViewMatch = useMatch(routes.GRID_VIEW);
   const scaleMatch = useMatch(routes.SCALE_UP_MENU);
   const viewportMatch = useMatch(routes.ON_VIEWPORT_ENTER);
+  const cardScatterMatch = useMatch(routes.CARD_SCATTER);
 
   return (
     <AnimatePresence initial={false}>
@@ -150,6 +154,11 @@ export default function Header() {
             <HeaderItem
               onView={Boolean(viewportMatch)}
               route="ON_VIEWPORT_ENTER"
+              setFullsize={setFullsize}
+            />
+            <HeaderItem
+              onView={Boolean(cardScatterMatch)}
+              route="CARD_SCATTER"
               setFullsize={setFullsize}
             />
           </motion.main>
