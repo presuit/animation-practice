@@ -19,7 +19,7 @@ export default function Home() {
       <PageTitle name="Home" />
       <div
         ref={boxRef}
-        className="container md:w-full w-[90%] h-[50vh] bg-slate-300 rounded-2xl grid grid-cols-2 grid-rows-2 overflow-hidden"
+        className="container w-1/2 aspect-square bg-slate-300 rounded-2xl grid grid-cols-2 grid-rows-2 overflow-hidden"
       >
         <motion.section
           animate={{
@@ -34,7 +34,7 @@ export default function Home() {
               "#64748b",
             ],
           }}
-          transition={{ duration: 4, repeat: Infinity }}
+          transition={{ duration: 4, repeat: Infinity, type: "tween" }}
           className="w-32 h-32 bg-slate-500 rounded-full place-self-center"
         ></motion.section>
       </div>
